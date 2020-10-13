@@ -6,8 +6,11 @@ This app shows a placeholder list of 100 items. It requires authentication to sh
 
 ## Install dependencies: 
 
+Install modules:
+
 ```shell
 $ npm i
+$ cd ios && pod install
 ````
 
 ## Run app
