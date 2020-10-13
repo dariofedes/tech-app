@@ -7,11 +7,15 @@ import { firebase } from '../firebase'
  */
 
 export default function persistLogin(onSuccess, onError) {
-    const usersRef = firebase.firestore().collection('users')
+    
 
     firebase.auth().onAuthStateChanged(async user => {
         let userData = null
         if(user) {
+            const db = firebase.firestore();
+            db.settings({ experimentalForceLongPolling: true })
+            
+            const usersRef = db.collection('users')
             const document = await usersRef.doc(user.uid).get()
 
             if(document.exists) {

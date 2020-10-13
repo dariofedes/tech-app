@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { firebase } from '../firebase'
 import { FILL_DATABASE_URL } from '../../config'
-const listRef = firebase.firestore().collection('list')
+
 
 /**
  * Activates a listener that updates the list in real time
@@ -10,6 +10,11 @@ const listRef = firebase.firestore().collection('list')
  */
 
 export default function retrieveList(onSuccess, onError) {
+    const db = firebase.firestore();
+    db.settings({ experimentalForceLongPolling: true })
+
+    const listRef = db.collection('list')
+    
     const unsubscribe = listRef.onSnapshot(snapshot => {
         const list = [ ]
 
